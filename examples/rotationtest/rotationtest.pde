@@ -26,9 +26,9 @@
 //Use these pins for the shield!
 #define sclk 13
 #define mosi 11
-#define cs   10
-#define dc   8
-#define rst  0  // you can also connect this to the Arduino reset
+#define cs   9
+#define dc   7
+#define rst  8
 
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library

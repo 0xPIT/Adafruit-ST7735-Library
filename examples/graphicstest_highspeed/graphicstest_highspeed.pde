@@ -19,8 +19,8 @@
 // For the breakout, you can use any (2 or) 3 pins
 //#define sclk 13
 //#define mosi 11
-#define cs   10
-#define dc   9
+#define cs   9
+#define dc   7
 #define rst  8  // you can also connect this to the Arduino reset
 
 //Use these pins for the shield!
@@ -44,7 +44,13 @@
 // (for UNO thats sclk = 13 and sid = 11) and pin 10 must be
 // an output. This is much faster - also required if you want
 // to use the microSD card (see the image drawing example)
-Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst);
+//Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst);
+
+#define LCD_CS   9
+#define LCD_DC   7
+#define LCD_RST  8
+Adafruit_ST7735 tft = Adafruit_ST7735(LCD_CS, LCD_DC, LCD_RST);
+
 float p = 3.1415926;
 
 void setup(void) {

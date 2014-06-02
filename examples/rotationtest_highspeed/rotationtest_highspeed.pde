@@ -16,13 +16,16 @@
   MIT license, all text above must be included in any redistribution
  ****************************************************/
 
+#define cs   9
+#define dc   7
+#define rst  8
 
 // For the breakout, you can use any (2 or) 3 pins
-//#define sclk 13
-//#define mosi 11
-#define cs   10
-#define dc   9
-#define rst  8  // you can also connect this to the Arduino reset
+////#define sclk 13
+////#define mosi 11
+//#define cs   10
+//#define dc   9
+//#define rst  8  // you can also connect this to the Arduino reset
 
 //Use these pins for the shield!
 //#define cs   10
@@ -60,9 +63,9 @@ void setup(void) {
   // If you are seeing red and green color inversion, use Black Tab
 
   // If your TFT's plastic wrap has a Black Tab, use the following:
-  tft.initR(INITR_BLACKTAB);   // initialize a ST7735S chip, black tab
+  //tft.initR(INITR_BLACKTAB);   // initialize a ST7735S chip, black tab
   // If your TFT's plastic wrap has a Red Tab, use the following:
-  //tft.initR(INITR_REDTAB);   // initialize a ST7735R chip, red tab
+  tft.initR(INITR_REDTAB);   // initialize a ST7735R chip, red tab
   // If your TFT's plastic wrap has a Green Tab, use the following:
   //tft.initR(INITR_GREENTAB); // initialize a ST7735R chip, green tab
 

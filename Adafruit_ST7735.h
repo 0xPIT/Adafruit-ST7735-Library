@@ -107,9 +107,6 @@ typedef unsigned char prog_uchar;
 class Adafruit_ST7735 : public Adafruit_GFX {
 
  public:
-
-  Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t SID, uint8_t SCLK,
-    uint8_t RST);
   Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t RST);
 
   void     initB(void),                             // for ST7735B displays
@@ -137,14 +134,17 @@ class Adafruit_ST7735 : public Adafruit_GFX {
  private:
   uint8_t  tabcolor;
 
-  void     spiwrite(uint8_t),
-           writecommand(uint8_t c),
-           writedata(uint8_t d),
+  void     __attribute__((naked,always_inline)) spiwrite(uint8_t),
+           __attribute__((naked,always_inline)) spiwrite(uint16_t),
+           __attribute__((naked)) writecommand(uint8_t c),
+           __attribute__((naked)) writedata(uint8_t d),
            commandList(const uint8_t *addr),
            commonInit(const uint8_t *cmdList);
 //uint8_t  spiread(void);
+  void __attribute__((naked)) writedata(uint8_t c[4], uint8_t len);
 
-  boolean  hwSPI;
+  void __attribute__((naked,always_inline)) spiEnable(void);
+  void __attribute__((naked,always_inline)) spiDisable(void);
 
 #if defined(__AVR__) || defined(CORE_TEENSY)
 volatile uint8_t *dataport, *clkport, *csport, *rsport;
