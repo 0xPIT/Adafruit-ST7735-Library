@@ -197,7 +197,7 @@ void Adafruit_ST7735::drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t co
   if((x >= _width) || (y >= _height)) return;
   if((y + h - 1) >= _height) h = _height-y;
 
-  setAddrWindow(x, y, x, y+h-1);
+  setAddrWindow(x, y, x, y + h - 1);
 
   spiEnable();
   while (h--) {
