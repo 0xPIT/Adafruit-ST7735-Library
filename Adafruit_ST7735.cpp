@@ -102,16 +102,16 @@ inline void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c[4], uint
 // ----------------------------------------------------------------------------
 
 #if defined(__SAM3X8E__)
-  inline void Adafruit_ST7735::spiEnable(void) {
+  static inline void Adafruit_ST7735::spiEnable(void) {
     rsport->PIO_SODR |=  rspinmask;
     csport->PIO_CODR  |=  cspinmask;
   }
 
-  inline void Adafruit_ST7735::spiDisable(void) {
+  static inline void Adafruit_ST7735::spiDisable(void) {
     csport->PIO_SODR  |=  cspinmask;
   }
 
-  inline void Adafruit_ST7735::spiwrite(uint8_t c) {
+  static inline void Adafruit_ST7735::spiwrite(uint8_t c) {
     
     //Serial.println(c, HEX);
     

@@ -134,8 +134,8 @@ class Adafruit_ST7735 : public Adafruit_GFX {
  private:
   uint8_t  tabcolor;
 
-  inline void __attribute__((naked)) spiwrite(uint8_t);
-  inline void __attribute__((naked)) spiwrite(uint16_t);
+  static inline void __attribute__((naked)) spiwrite(uint8_t);
+  static inline void __attribute__((naked)) spiwrite(uint16_t);
   
   inline void __attribute__((naked)) writedata(uint8_t d);
   inline void __attribute__((naked)) writedata(uint8_t c[4], uint8_t len);
@@ -151,17 +151,15 @@ class Adafruit_ST7735 : public Adafruit_GFX {
   
 
 #if defined(__AVR__) || defined(CORE_TEENSY)
-volatile uint8_t *dataport, *clkport, *csport, *rsport;
-  uint8_t  _cs, _rs, _rst, _sid, _sclk,
+  volatile uint8_t *dataport, *clkport, *csport, *rsport;
+  uint8_t _cs, _rs, _rst, _sid, _sclk,
+          datapinmask, clkpinmask, cspinmask, rspinmask,
+          colstart, rowstart; // some displays need this changed
+#elif defined(__SAM3X8E__)
+  Pio *dataport, *clkport, *csport, *rsport;
+  uint32_t _cs, _rs, _rst, _sid, _sclk,
            datapinmask, clkpinmask, cspinmask, rspinmask,
            colstart, rowstart; // some displays need this changed
-#endif //  #ifdef __AVR__
-
-#if defined(__SAM3X8E__)
-  Pio *dataport, *clkport, *csport, *rsport;
-  uint32_t  _cs, _rs, _rst, _sid, _sclk,
-            datapinmask, clkpinmask, cspinmask, rspinmask,
-            colstart, rowstart; // some displays need this changed
 #endif //  #if defined(__SAM3X8E__)
   
 };
