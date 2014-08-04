@@ -134,17 +134,21 @@ class Adafruit_ST7735 : public Adafruit_GFX {
  private:
   uint8_t  tabcolor;
 
-  void     __attribute__((naked,always_inline)) spiwrite(uint8_t),
-           __attribute__((naked,always_inline)) spiwrite(uint16_t),
-           __attribute__((naked)) writecommand(uint8_t c),
-           __attribute__((naked)) writedata(uint8_t d),
-           commandList(const uint8_t *addr),
-           commonInit(const uint8_t *cmdList);
-//uint8_t  spiread(void);
-  void __attribute__((naked)) writedata(uint8_t c[4], uint8_t len);
+  inline void __attribute__((naked)) spiwrite(uint8_t);
+  inline void __attribute__((naked)) spiwrite(uint16_t);
+  
+  inline void __attribute__((naked)) writedata(uint8_t d);
+  inline void __attribute__((naked)) writedata(uint8_t c[4], uint8_t len);
 
-  void __attribute__((naked,always_inline)) spiEnable(void);
-  void __attribute__((naked,always_inline)) spiDisable(void);
+  inline void __attribute__((naked)) writecommand(uint8_t c);
+
+  inline void __attribute__((naked)) spiEnable(void);
+  inline void __attribute__((naked)) spiDisable(void);
+
+  void commandList(const uint8_t *addr);
+  void commonInit(const uint8_t *cmdList);
+  //uint8_t  spiread(void);
+  
 
 #if defined(__AVR__) || defined(CORE_TEENSY)
 volatile uint8_t *dataport, *clkport, *csport, *rsport;

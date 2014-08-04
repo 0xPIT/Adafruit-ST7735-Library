@@ -48,42 +48,42 @@ Adafruit_ST7735::Adafruit_ST7735(uint8_t cs, uint8_t rs, uint8_t rst)
 // ----------------------------------------------------------------------------
 
 #ifdef __AVR__
-void Adafruit_ST7735::spiEnable(void) {
+inline void Adafruit_ST7735::spiEnable(void) {
   *rsport |=  rspinmask;
   *csport &= ~cspinmask;
 }
 
-void Adafruit_ST7735::spiDisable(void) {
+inline void Adafruit_ST7735::spiDisable(void) {
   *csport |= cspinmask;
 }
 
-inline void __attribute__((naked,always_inline)) Adafruit_ST7735::spiwrite(uint8_t c) {
+inline void __attribute__((naked)) Adafruit_ST7735::spiwrite(uint8_t c) {
     SPDR = c;
     while(!(SPSR & _BV(SPIF)));
 }
 
-inline void __attribute__((naked,always_inline)) Adafruit_ST7735::spiwrite(uint16_t c) {
+inline void __attribute__((naked)) Adafruit_ST7735::spiwrite(uint16_t c) {
   SPDR = (c >> 8);
   while(!(SPSR & _BV(SPIF)));
   SPDR = (c & 0xff);
   while(!(SPSR & _BV(SPIF)));
 }
 
-void __attribute__((naked)) Adafruit_ST7735::writecommand(uint8_t c) {
+inline void __attribute__((naked)) Adafruit_ST7735::writecommand(uint8_t c) {
   *rsport &= ~rspinmask;
   *csport &= ~cspinmask;
   spiwrite(c);
   *csport |= cspinmask;
 }
 
-void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c) {
+inline void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c) {
   *rsport |=  rspinmask;
   *csport &= ~cspinmask;
   spiwrite(c);
   *csport |= cspinmask;
 } 
 
-void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c[4], uint8_t len) {
+inline void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c[4], uint8_t len) {
   *rsport |=  rspinmask;
   *csport &= ~cspinmask;
 
@@ -102,12 +102,12 @@ void __attribute__((naked)) Adafruit_ST7735::writedata(uint8_t c[4], uint8_t len
 // ----------------------------------------------------------------------------
 
 #if defined(__SAM3X8E__)
-  void Adafruit_ST7735::spiEnable(void) {
+  inline void Adafruit_ST7735::spiEnable(void) {
     rsport->PIO_SODR |=  rspinmask;
     csport->PIO_CODR  |=  cspinmask;
   }
 
-  void Adafruit_ST7735::spiDisable(void) {
+  inline void Adafruit_ST7735::spiDisable(void) {
     csport->PIO_SODR  |=  cspinmask;
   }
 
